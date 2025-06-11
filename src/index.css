@@ -1,0 +1,97 @@
+@import url('https://fonts.cdnfonts.com/css/cooper-black');
+
+:root {
+  font-family: 'Cooper Black', serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #0066cc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cooper Black', serif;
+  color: #0066cc;
+  line-height: 1.2;
+}
+
+a {
+  font-weight: 500;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #cc0000;
+}
+
+button {
+  font-family: 'Cooper Black', serif;
+  border-radius: 8px;
+  border: 2px solid #0066cc;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #0066cc;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #cc0000;
+  background-color: #cc0000;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+input {
+  font-family: 'Cooper Black', serif;
+  border: 2px solid #0066cc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 1rem;
+  color: #0066cc;
+  background-color: #ffffff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #cc0000;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #ffffff;
+    color: #0066cc;
+  }
+  
+  button {
+    background-color: #0066cc;
+    color: #ffffff;
+  }
+  
+  input {
+    background-color: #ffffff;
+    color: #0066cc;
+  }
+}

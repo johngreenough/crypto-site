@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import { getCryptoLogo } from '../utils/cryptoLogos'
 import { cryptoDetails } from '../utils/cryptoDetails'
@@ -14,8 +13,6 @@ interface CryptoFlipCardProps {
   onAmountChange: (value: string) => void
   calculateTotal: (price: number, amount: string) => string
   isSelected: boolean
-  isBestPerformer: boolean
-  isWorstPerformer: boolean
 }
 
 export default function CryptoFlipCard({
@@ -28,9 +25,7 @@ export default function CryptoFlipCard({
   amount,
   onAmountChange,
   calculateTotal,
-  isSelected,
-  isBestPerformer,
-  isWorstPerformer
+  isSelected
 }: CryptoFlipCardProps) {
   const details = cryptoDetails[id.toLowerCase()]
 

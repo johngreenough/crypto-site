@@ -1,6 +1,6 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import SkyBackground from './components/SkyBackground'
+import { event } from './utils/analytics'
 
 interface CryptoItem {
   id: string
@@ -15,6 +15,17 @@ interface CryptoItem {
 export default function Checkout({ cart, onRemoveFromCart }: { cart: CryptoItem[], onRemoveFromCart: (id: string) => void }) {
   const navigate = useNavigate()
   const total = cart.reduce((sum, item) => sum + item.totalPrice, 0)
+
+  const handleProceedToPayment = () => {
+    // Track checkout initiation
+    event({
+      action: 'begin_checkout',
+      category: 'ecommerce',
+      label: 'Proceed to Payment',
+      value: total
+    })
+    navigate('/payment')
+  }
 
   return (
     <>
@@ -122,7 +133,7 @@ export default function Checkout({ cart, onRemoveFromCart }: { cart: CryptoItem[
               })}</p>
             </div>
             <button 
-              onClick={() => navigate('/payment')}
+              onClick={handleProceedToPayment}
               style={{
                 padding: '12px 24px',
                 backgroundColor: '#0066cc',

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import SkyBackground from './components/SkyBackground'
+import { event } from './utils/analytics'
 
 interface PaymentFormData {
   cardNumber: string
@@ -11,7 +13,13 @@ interface PaymentFormData {
 
 type PaymentMethod = 'card' | 'crypto'
 
-export default function Payment({ total, onPaymentComplete }: { total: number, onPaymentComplete: () => void }) {
+interface PaymentProps {
+  total: number
+  onPaymentComplete: () => void
+}
+
+export default function Payment({ total, onPaymentComplete }: PaymentProps) {
+  const navigate = useNavigate()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('card')
   const [formData, setFormData] = useState<PaymentFormData>({
     cardNumber: '',
@@ -22,9 +30,26 @@ export default function Payment({ total, onPaymentComplete }: { total: number, o
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, you would process the payment here
-    alert('Payment processed successfully!')
-    onPaymentComplete()
+    // Track payment attempt
+    event({
+      action: 'payment_attempt',
+      category: 'ecommerce',
+      label: 'Payment Initiated',
+      value: total
+    })
+
+    // Simulate payment processing
+    setTimeout(() => {
+      // Track successful payment
+      event({
+        action: 'payment_success',
+        category: 'ecommerce',
+        label: 'Payment Successful',
+        value: total
+      })
+      onPaymentComplete()
+      navigate('/')
+    }, 2000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

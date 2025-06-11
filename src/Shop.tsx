@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchCryptoPrices } from './services/cryptoService'
 import { motion, AnimatePresence } from 'framer-motion'
-import LoadingSpinner from './components/LoadingSpinner'
 import SkyBackground from './components/SkyBackground'
 import Toast from './components/Toast'
-import { getCryptoLogo } from './utils/cryptoLogos'
 import CryptoFlipCard from './components/CryptoFlipCard'
 
 interface CryptoItem {
@@ -167,9 +165,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
   const [cart, setCart] = useState<CartItem[]>([])
   const [showOnlyInCart, setShowOnlyInCart] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const [tooltipContent, setTooltipContent] = useState('')
-  const [showTooltip, setShowTooltip] = useState(false)
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const loadPrices = async () => {
@@ -208,18 +203,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [])
-
-  // Show tooltip
-  const handleShowTooltip = (content: string, event: React.MouseEvent) => {
-    setTooltipContent(content)
-    setTooltipPosition({ x: event.clientX, y: event.clientY })
-    setShowTooltip(true)
-  }
-
-  // Hide tooltip
-  const handleHideTooltip = () => {
-    setShowTooltip(false)
-  }
 
   // Add to cart and update local cart state
   const handleAddToCart = (item: CryptoItem) => {
@@ -271,10 +254,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
     })
   }
 
-  // Find best/worst performer
-  const bestPerformer = items.length > 0 ? items.reduce((max, item) => item.change24h > max.change24h ? item : max, items[0]) : null
-  const worstPerformer = items.length > 0 ? items.reduce((min, item) => item.change24h < min.change24h ? item : min, items[0]) : null
-
   // Filtered and sorted items
   let filteredAndSortedItems = items
     .filter(item => {
@@ -300,10 +279,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
           return 0
       }
     })
-
-  // Sticky cart summary
-  const cartTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0)
-  const cartCount = cart.reduce((sum, item) => sum + item.amount, 0)
 
   if (loading) {
     return (
@@ -350,30 +325,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
         onClose={() => setShowToast(false)}
       />
       
-      {/* Tooltip */}
-      {showTooltip && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          style={{
-            position: 'fixed',
-            left: tooltipPosition.x + 10,
-            top: tooltipPosition.y + 10,
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            color: 'white',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            fontSize: '0.9rem',
-            zIndex: 1000,
-            pointerEvents: 'none',
-            maxWidth: '200px'
-          }}
-        >
-          {tooltipContent}
-        </motion.div>
-      )}
-
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -594,13 +545,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
         }}
       >
         {filteredAndSortedItems.map((item, index) => {
-          let highlight = ''
-          if (item.id === bestPerformer?.id) {
-            highlight = '2px solid #4CAF50'
-          } else if (item.id === worstPerformer?.id) {
-            highlight = '2px solid #f44336'
-          }
-
           return (
             <motion.div
               key={item.id}
@@ -623,8 +567,6 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
                 onAmountChange={(value) => handleAmountChange(item.id, value)}
                 calculateTotal={calculateTotal}
                 isSelected={selectedItem === item.id}
-                isBestPerformer={item.id === bestPerformer?.id}
-                isWorstPerformer={item.id === worstPerformer?.id}
               />
             </motion.div>
           )

@@ -114,6 +114,7 @@ function App() {
       <AdManager />
       <Routes>
         <Route path="/" element={<Navigate to="/crypto-site/" replace />} />
+        <Route path="/crypto-site" element={<Navigate to="/crypto-site/" replace />} />
         <Route path="/crypto-site/" element={<Shop onAddToCart={handleAddToCart} />} />
         <Route path="/crypto-site/cart" element={<Cart items={cart} onRemoveFromCart={handleRemoveFromCart} />} />
         <Route path="/crypto-site/checkout" element={<Checkout cart={cart} onRemoveFromCart={handleRemoveFromCart} />} />

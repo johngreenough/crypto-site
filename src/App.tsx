@@ -1,4 +1,4 @@
-// Redeployment trigger: ${new Date().toISOString()}
+// Version 1.0.1 - Full redeployment
 import React from 'react'
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'

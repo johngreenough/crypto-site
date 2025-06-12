@@ -1,4 +1,4 @@
-// Updated deployment timestamp: ${new Date().toISOString()}
+// Redeployment trigger: ${new Date().toISOString()}
 import React from 'react'
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'

@@ -48,7 +48,7 @@ export default function Payment({ total, onPaymentComplete }: PaymentProps) {
         value: total
       })
       onPaymentComplete()
-      navigate('/')
+      navigate('/crypto-site/')
     }, 2000)
   }
 

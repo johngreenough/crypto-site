@@ -176,7 +176,7 @@ export default function Cart({ items, onRemoveFromCart }: CartProps) {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/checkout')}
+              onClick={() => navigate('/crypto-site/checkout')}
               style={{
                 width: '100%',
                 padding: '1rem',

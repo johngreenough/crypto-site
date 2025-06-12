@@ -24,7 +24,7 @@ export default function Checkout({ cart, onRemoveFromCart }: { cart: CryptoItem[
       label: 'Proceed to Payment',
       value: total
     })
-    navigate('/payment')
+    navigate('/crypto-site/payment')
   }
 
   return (

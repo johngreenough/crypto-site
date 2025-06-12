@@ -257,7 +257,8 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
   // Filtered and sorted items
   let filteredAndSortedItems = items
     .filter(item => {
-      const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      const matchesSearch = searchQuery === '' || 
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.symbol.toLowerCase().includes(searchQuery.toLowerCase())
       const matchesPrice = item.price >= priceRange.min && item.price <= priceRange.max
       const matchesCart = !showOnlyInCart || cart.some(ci => ci.id === item.id)
@@ -380,11 +381,9 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
           />
         </motion.div>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <motion.select
+          <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
             style={{
               padding: '0.75rem',
               fontSize: '1.1rem',
@@ -392,16 +391,26 @@ export default function Shop({ onAddToCart }: { onAddToCart: (item: CartItem) =>
               borderRadius: '4px',
               fontFamily: "'Cooper Black', serif",
               backgroundColor: 'white',
+              color: '#0066cc',
               cursor: 'pointer',
+              outline: 'none',
               transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.borderColor = '#0052a3'
+              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)'
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = '#0066cc'
+              e.currentTarget.style.boxShadow = 'none'
             }}
           >
             <option value="name">Sort by Name</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
-            <option value="change-asc">24h Change: Low to High</option>
-            <option value="change-desc">24h Change: High to Low</option>
-          </motion.select>
+            <option value="change-asc">Change: Low to High</option>
+            <option value="change-desc">Change: High to Low</option>
+          </select>
           <motion.button
             variants={buttonVariants}
             whileHover="hover"

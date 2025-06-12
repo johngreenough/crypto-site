@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useLocation } from 'react-router-dom'
+import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import './App.css'
 import Shop from './Shop'
@@ -6,6 +6,7 @@ import Cart from './Cart'
 import Checkout from './Checkout'
 import Payment from './Payment'
 import { pageview, event } from './utils/analytics'
+import AdManager from './components/AdManager'
 
 interface CryptoItem {
   id: string
@@ -82,13 +83,13 @@ function App() {
         alignItems: 'center'
       }}>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <Link to="/" style={{ 
+          <Link to="/crypto-site/" style={{ 
             textDecoration: 'none', 
             color: '#0066cc',
             fontFamily: "'Cooper Black', serif",
             fontSize: '1.1rem'
           }}>Shop</Link>
-          <Link to="/cart" style={{ 
+          <Link to="/crypto-site/cart" style={{ 
             textDecoration: 'none', 
             color: '#0066cc',
             fontFamily: "'Cooper Black', serif",
@@ -108,11 +109,13 @@ function App() {
           })}
         </div>
       </nav>
+      <AdManager />
       <Routes>
-        <Route path="/" element={<Shop onAddToCart={handleAddToCart} />} />
-        <Route path="/cart" element={<Cart items={cart} onRemoveFromCart={handleRemoveFromCart} />} />
-        <Route path="/checkout" element={<Checkout cart={cart} onRemoveFromCart={handleRemoveFromCart} />} />
-        <Route path="/payment" element={<Payment total={total} onPaymentComplete={handlePaymentComplete} />} />
+        <Route path="/" element={<Navigate to="/crypto-site/" replace />} />
+        <Route path="/crypto-site/" element={<Shop onAddToCart={handleAddToCart} />} />
+        <Route path="/crypto-site/cart" element={<Cart items={cart} onRemoveFromCart={handleRemoveFromCart} />} />
+        <Route path="/crypto-site/checkout" element={<Checkout cart={cart} onRemoveFromCart={handleRemoveFromCart} />} />
+        <Route path="/crypto-site/payment" element={<Payment total={total} onPaymentComplete={handlePaymentComplete} />} />
       </Routes>
     </div>
   )

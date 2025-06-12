@@ -7,42 +7,42 @@ const AD_COINS = [
     symbol: 'BTC',
     price: 65432.10,
     change24h: 2.5,
-    image: '/src/assets/bitcoin.png'
+    image: './assets/bitcoin.png'
   },
   {
     name: 'Ethereum',
     symbol: 'ETH',
     price: 3456.78,
     change24h: -1.2,
-    image: '/src/assets/ethereum.png'
+    image: './assets/ethereum.png'
   },
   {
     name: 'Solana',
     symbol: 'SOL',
     price: 123.45,
     change24h: 5.7,
-    image: '/src/assets/solana.png'
+    image: './assets/solana.png'
   },
   {
     name: 'Cardano',
     symbol: 'ADA',
     price: 0.45,
     change24h: 3.2,
-    image: '/src/assets/cardano.png'
+    image: './assets/cardano.png'
   },
   {
     name: 'Polkadot',
     symbol: 'DOT',
     price: 6.78,
     change24h: -2.1,
-    image: '/src/assets/polkadot.png'
+    image: './assets/polkadot.png'
   },
   {
     name: 'Chainlink',
     symbol: 'LINK',
     price: 15.67,
     change24h: 4.3,
-    image: '/src/assets/chainlink.png'
+    image: './assets/chainlink.png'
   }
 ]
 
